@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Método Científico en Acción: PAE | UCCuyo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f7f9f6;
+        }
+        /* Estilo visual UCCuyo (Verde Oliva Institucional) */
+        .text-accent { color: #436600; }
+        .bg-accent { background-color: #436600; }
+        .bg-accent-hover:hover { background-color: #324d00; }
+        .bg-accent-light { background-color: #f1f6eb; }
+        .border-accent { border-color: #436600; }
+
+        .text-primary { color: #436600; }
+        .bg-primary { background-color: #436600; }
+        .bg-primary-dark { background-color: #324d00; }
+        .border-primary { border-color: #436600; }
+
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .card-hover {
+            transition: all 0.25s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -4px rgba(67, 102, 0, 0.12);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-800 antialiased">
+
+    <!-- Cabecera Institucional UCCuyo -->
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    FE
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold text-gray-800 tracking-wide uppercase">EL MÉTODO CIENTÍFICO EN ACCIÓN: PAE</h1>
+                    <p class="text-xs text-gray-500 font-semibold">Fundamentos de Enfermería (Facultad de Cs. Médicas - UCCuyo)</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#f1f6eb] text-[#436600] border border-[#436600]/20">
+                    <i class="fa-solid fa-graduation-cap"></i> Curso de Ingreso
+                </span>
+
+                <!-- Botón Guía de Uso -->
+                <button onclick="openTutorial()" class="flex items-center gap-1.5 px-3 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg shadow-sm hover:opacity-90 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Guía de Uso
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal con navegación lateral -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex flex-col lg:flex-row gap-6">
+        
+        <!-- Menú de Navegación Lateral (6 Pestañas Formativas) -->
+        <nav class="w-full lg:w-64 flex flex-row lg:flex-col gap-2 bg-white p-3 rounded-2xl shadow-sm border border-gray-100 overflow-x-auto lg:overflow-x-visible whitespace-nowrap lg:whitespace-normal sticky top-20 h-fit">
+            <button onclick="switchTab('tab-inicio')" id="btn-tab-inicio" class="bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-semibold transition flex items-center gap-2.5 shadow-xs">
+                <i class="fa-solid fa-compass text-sm text-white"></i>
+                <span>Presentación General</span>
+            </button>
+            <button onclick="switchTab('tab-mod1')" id="btn-tab-mod1" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-clipboard-user text-sm text-[#436600]"></i>
+                <span>1. Valoración</span>
+            </button>
+            <button onclick="switchTab('tab-mod2')" id="btn-tab-mod2" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-stethoscope text-sm text-[#436600]"></i>
+                <span>2. Diagnóstico</span>
+            </button>
+            <button onclick="switchTab('tab-mod3')" id="btn-tab-mod3" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-list-check text-sm text-[#436600]"></i>
+                <span>3. Planificación</span>
+            </button>
+            <button onclick="switchTab('tab-mod4')" id="btn-tab-mod4" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-hand-holding-medical text-sm text-[#436600]"></i>
+                <span>4. Ejecución</span>
+            </button>
+            <button onclick="switchTab('tab-mod5')" id="btn-tab-mod5" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-chart-line text-sm text-[#436600]"></i>
+                <span>5. Evaluación</span>
+            </button>
+
+            <!-- Tarjeta lateral de relevancia clínica -->
+            <div class="hidden lg:block mt-4 pt-3 border-t border-gray-100 bg-[#f1f6eb]/80 p-3 rounded-xl border border-[#436600]/20 text-xs text-slate-700 space-y-1">
+                <div class="font-bold text-[#436600] flex items-center gap-1.5 text-[11px] uppercase tracking-wider">
+                    <i class="fa-solid fa-microscope"></i> El Método Científico
+                </div>
+                <p class="leading-relaxed text-gray-600 text-[11.5px]">
+                    El PAE no es un formulario administrativo; es el método sistemático, racional, lógico, organizado y dinámico que fundamenta científicamente la praxis autónoma de la enfermería.
+                </p>
+            </div>
+        </nav>
+
+        <!-- Área de Contenido Principal -->
+        <section class="flex-1 min-w-0">
+
+            <!-- ================= PRESENTACIÓN GENERAL ================= -->
+            <div id="tab-inicio" class="tab-content active space-y-6">
+                <!-- Hero institucional -->
+                <div class="bg-gradient-to-br from-white to-[#f1f6eb] rounded-2xl p-6 sm:p-8 border border-gray-200/80 shadow-sm relative overflow-hidden">
+                    <div class="absolute right-0 top-0 translate-x-10 -translate-y-10 w-52 h-52 bg-[#436600]/10 rounded-full pointer-events-none"></div>
+                    <div class="max-w-2xl relative z-10 space-y-4">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-[#436600]/30 text-[#436600] shadow-xs">
+                            <i class="fa-solid fa-graduation-cap"></i> Curso de Ingreso • FCM UCCuyo
+                        </span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+                            El Método Científico en Acción: Proceso de Atención de Enfermería (PAE)
+                        </h2>
+                        <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+                            Bienvenido al simulador formativo de <strong>Fundamentos de Enfermería</strong>. El Proceso de Atención de Enfermería (PAE) constituye la aplicación directa del método científico al cuidado humano profesional, estructurado en <strong>5 fases correlacionadas y cíclicas</strong>: Valoración, Diagnóstico, Planificación, Ejecución y Evaluación.
+                        </p>
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <button onclick="switchTab('tab-mod1')" class="bg-accent hover:opacity-90 text-white font-semibold px-5 py-2.5 rounded-xl shadow-sm text-xs sm:text-sm transition flex items-center gap-2">
+                                <span>Iniciar con Fase 1: Valoración</span> <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button onclick="switchTab('tab-mod3')" class="bg-white hover:bg-gray-50 text-[#436600] border border-[#436600]/30 font-semibold px-5 py-2.5 rounded-xl shadow-xs text-xs sm:text-sm transition flex items-center gap-2">
+                                <i class="fa-solid fa-list-check text-[#436600]"></i> Planificación y Prioridades
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paralelismo Metodológico y Propiedades Epistemológicas -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                    <!-- Paralelismo con el método de investigación -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center gap-2.5 mb-2">
+                                <div class="w-9 h-9 rounded-xl bg-[#f1f6eb] text-[#436600] flex items-center justify-center font-bold text-base">
+                                    <i class="fa-solid fa-code-compare"></i>
+                                </div>
+                                <h3 class="text-base font-bold text-gray-900">Paralelismo Metodológico</h3>
+                            </div>
+                            <p class="text-xs text-gray-600 mb-4">
+                                La práctica enfermera reproduce el rigor de la investigación científica experimental adaptada a las respuestas humanas:
+                            </p>
+
+                            <div class="space-y-2 text-xs">
+                                <div class="p-2.5 bg-gray-50 rounded-xl border border-gray-200/80 flex items-center justify-between">
+                                    <span class="text-gray-500 font-semibold">1. Investigar el problema:</span>
+                                    <span class="font-bold text-[#436600]">Valoración</span>
+                                </div>
+                                <div class="p-2.5 bg-[#f1f6eb]/60 rounded-xl border border-[#436600]/20 flex items-center justify-between">
+                                    <span class="text-gray-500 font-semibold">2. Formulación de hipótesis:</span>
+                                    <span class="font-bold text-[#436600]">Diagnóstico de Enfermería</span>
+                                </div>
+                                <div class="p-2.5 bg-gray-50 rounded-xl border border-gray-200/80 flex items-center justify-between">
+                                    <span class="text-gray-500 font-semibold">3. Diseño experimental y metas:</span>
+                                    <span class="font-bold text-[#436600]">Planificación y Objetivos</span>
+                                </div>
+                                <div class="p-2.5 bg-gray-50 rounded-xl border border-gray-200/80 flex items-center justify-between">
+                                    <span class="text-gray-500 font-semibold">4. Experimentación / Prueba:</span>
+                                    <span class="font-bold text-[#436600]">Ejecución de Cuidados</span>
+                                </div>
+                                <div class="p-2.5 bg-[#f1f6eb]/60 rounded-xl border border-[#436600]/20 flex items-center justify-between">
+                                    <span class="text-gray-500 font-semibold">5. Conclusión y Verificación:</span>
+                                    <span class="font-bold text-[#436600]">Evaluación de Resultados</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tres Propiedades del PAE -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center gap-2.5 mb-2">
+                                <div class="w-9 h-9 rounded-xl bg-[#f1f6eb] text-[#436600] flex items-center justify-center font-bold text-base">
+                                    <i class="fa-solid fa-cubes-stacked"></i>
+                                </div>
+                                <h3 class="text-base font-bold text-gray-900">Características del PAE</h3>
+                            </div>
+                            <p class="text-xs text-gray-600 mb-3">
+                                En la UCCuyo, el PAE fundamenta la autonomía profesional bajo tres pilares epistemológicos esenciales:
+                            </p>
+
+                            <div class="space-y-2.5">
+                                <div class="p-3 bg-gray-50 rounded-xl border border-gray-200/70">
+                                    <strong class="text-xs text-gray-900 font-bold block mb-0.5"><i class="fa-solid fa-list-ol text-[#436600] mr-1"></i> 1. Sistemático:</strong>
+                                    <p class="text-[11.5px] text-gray-600">Sigue un orden secuencial riguroso. No se pueden plantear intervenciones sin previa recolección ni diagnóstico.</p>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded-xl border border-gray-200/70">
+                                    <strong class="text-xs text-gray-900 font-bold block mb-0.5"><i class="fa-solid fa-diagram-project text-[#436600] mr-1"></i> 2. Organizado:</strong>
+                                    <p class="text-[11.5px] text-gray-600">Estructurado taxativamente en 5 etapas correlacionadas que generan insumos continuos entre sí.</p>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded-xl border border-gray-200/70">
+                                    <strong class="text-xs text-gray-900 font-bold block mb-0.5"><i class="fa-solid fa-arrows-rotate text-[#436600] mr-1"></i> 3. Dinámico y Flexible:</strong>
+                                    <p class="text-[11.5px] text-gray-600">El paciente es un ente cambiante. El PAE es un ciclo en espiral que permite revalorar y reajustar en tiempo real.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid de las 5 Fases Cíclicas del PAE -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
+                    <h3 class="text-sm font-bold text-gray-800 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-circle-nodes text-[#436600]"></i> Las 5 Fases del Ciclo Continuo del PAE
+                    </h3>
+                    <p class="text-xs text-gray-600">
+                        Haz clic en cualquiera de las fases para explorar sus conceptos fundamentales, técnicas y fundamentos científicos:
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-1">
+                        <div onclick="switchTab('tab-mod1')" class="p-4 rounded-xl bg-gray-50 hover:bg-[#f1f6eb] border border-gray-200 hover:border-[#436600] transition cursor-pointer text-center group">
+                            <span class="w-9 h-9 rounded-full bg-[#f1f6eb] text-[#436600] flex items-center justify-center text-sm font-bold mx-auto mb-2 group-hover:scale-110 transition">1</span>
+                            <h4 class="font-bold text-gray-900 text-xs group-hover:text-[#436600]">Valoración</h4>
+                            <p class="text-[11px] text-gray-500 mt-1">Datos objetivos/subjetivos, entrevista y examen físico.</p>
+                        </div>
+
+                        <div onclick="switchTab('tab-mod2')" class="p-4 rounded-xl bg-gray-50 hover:bg-[#f1f6eb] border border-gray-200 hover:border-[#436600] transition cursor-pointer text-center group">
+                            <span class="w-9 h-9 rounded-full bg-[#f1f6eb] text-[#436600] flex items-center justify-center text-sm font-bold mx-auto mb-2 group-hover:scale-110 transition">2</span>
+                            <h4 class="font-bold text-gray-900 text-xs group-hover:text-[#436600]">Diagnóstico</h4>
+                            <p class="text-[11px] text-gray-500 mt-1">Respuestas humanas y necesidades insatisfechas.</p>
+                        </div>
+
+                        <div onclick="switchTab('tab-mod3')" class="p-4 rounded-xl bg-gray-50 hover:bg-[#f1f6eb] border border-gray-200 hover:border-[#436600] transition cursor-pointer text-center group">
+                            <span class="w-9 h-9 rounded-full bg-[#f1f6eb] text-[#436600] flex items-center justify-center text-sm font-bold mx-auto mb-2 group-hover:scale-110 transition">3</span>
+                            <h4 class="font-bold text-gray-900 text-xs group-hover:text-[#436600]">Planificación</h4>
+                            <p class="text-[11px] text-gray-500 mt-1">Prioridades vitales, metas a corto plazo y fundamentos.</p>
+                        </div>
+
+                        <div onclick="switchTab('tab-mod4')" class="p-4 rounded-xl bg-gray-50 hover:bg-[#f1f6eb] border border-gray-200 hover:border-[#436600] transition cursor-pointer text-center group">
+                            <span class="w-9 h-9 rounded-full bg-[#f1f6eb] text-[#436600] flex items-center justify-center text-sm font-bold mx-auto mb-2 group-hover:scale-110 transition">4</span>
+                            <h4 class="font-bold text-gray-900 text-xs group-hover:text-[#436600]">Ejecución</h4>
+                            <p class="text-[11px] text-gray-500 mt-1">Puesta en práctica de cuidados y registro metódico.</p>
+                        </div>
+
+                        <div onclick="switchTab('tab-mod5')" class="p-4 rounded-xl bg-gray-50 hover:bg-[#f1f6eb] border border-gray-200 hover:border-[#436600] transition cursor-pointer text-center group">
+                            <span class="w-9 h-9 rounded-full bg-[#f1f6eb] text-[#436600] flex items-center justify-center text-sm font-bold mx-auto mb-2 group-hover:scale-110 transition">5</span>
+                            <h4 class="font-bold text-gray-900 text-xs group-hover:text-[#436600]">Evaluación</h4>
+                            <p class="text-[11px] text-gray-500 mt-1">Cotejo de resultados y reajuste dinámico en espiral.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MÓDULO 1: VALORACIÓN ================= -->
+            <div id="tab-mod1" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm space-y-6">
+                    <div class="border-b border-gray-100 pb-4 flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-[#436600] bg-[#f1f6eb] px-3 py-1 rounded-full">Fase 1 del PAE</span>
+                            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mt-1">Valoración: Recolección y Clasificación de Datos</h2>
+                        </div>
+                        <button onclick="switchTab('tab-mod2')" class="text-xs font-semibold text-[#436600] hover:underline flex items-center gap-1">
+                            Siguiente Fase <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <p class="text-gray-700 text-sm leading-relaxed">
+                        Es la primera fase del PAE. Consiste en la obtención deliberada, sistemática y continua de datos sobre el estado de salud del paciente, su familia y comunidad.
+                    </p>
+
+                    <!-- Clasificación de Datos: Subjetivos vs Objetivos -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Datos Subjetivos -->
+                        <div class="p-5 bg-amber-50/60 rounded-xl border border-amber-200 space-y-3">
+                            <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+                                <i class="fa-solid fa-comment-dots text-amber-600"></i>
+                                <h4>Datos Subjetivos</h4>
+                            </div>
+                            <p class="text-xs text-gray-700 leading-relaxed">
+                                Información manifestada verbalmente por el paciente o allegados. Son sensaciones, dolores, percepciones y vivencias que <strong>no se pueden medir directamente con un instrumento físico</strong>.
+                            </p>
+                            <div class="p-3 bg-white rounded-lg border border-amber-200/70 text-xs text-gray-600 space-y-1 italic">
+                                <div>• <em>"Siento que me falta el aire cuando intento hablar."</em></div>
+                                <div>• <em>"Me arde mucho la zona del talón y la espalda baja."</em></div>
+                                <div>• <em>"Tengo mucha angustia y miedo de no mejorar."</em></div>
+                            </div>
+                        </div>
+
+                        <!-- Datos Objetivos -->
+                        <div class="p-5 bg-[#f1f6eb] rounded-xl border border-[#436600]/20 space-y-3">
+                            <div class="flex items-center gap-2 text-[#436600] font-bold text-sm">
+                                <i class="fa-solid fa-gauge-high"></i>
+                                <h4>Datos Objetivos</h4>
+                            </div>
+                            <p class="text-xs text-gray-700 leading-relaxed">
+                                Signos medibles, cuantificables, contrastables y observables obtenidos por el profesional de enfermería mediante la <strong>exploración física, instrumentos y tecnología clínica</strong>.
+                            </p>
+                            <div class="p-3 bg-white rounded-lg border border-[#436600]/20 text-xs text-gray-700 space-y-1 font-mono">
+                                <div>• Frecuencia respiratoria: 28 rpm (Taquipnea)</div>
+                                <div>• Saturación de oxígeno (SatO2): 87% aire ambiente</div>
+                                <div>• Presencia de eritema de 4 cm en región sacrococcígea</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Procedimientos Esenciales: Entrevista y Examen Físico (4 Técnicas) -->
+                    <div class="space-y-4 pt-2">
+                        <h3 class="text-sm font-bold text-gray-800 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-user-doctor text-[#436600]"></i> Procedimientos Esenciales de la Valoración
+                        </h3>
+
+                        <!-- 1. Entrevista de Enfermería -->
+                        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200/80 space-y-1.5">
+                            <h4 class="font-bold text-[#436600] text-xs sm:text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-comments"></i> 1. La Entrevista de Enfermería
+                            </h4>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Diálogo formal o conversación informal planificada entre el profesional y la persona asistida. Su propósito es conocer sus vivencias, antecedentes personales y patológicos, el motivo de consulta e identificar la vivencia emocional frente a la internación.
+                            </p>
+                        </div>
+
+                        <!-- 2. Examen Físico: 4 Técnicas -->
+                        <div class="space-y-3">
+                            <h4 class="text-xs font-bold text-gray-700 uppercase tracking-wider">
+                                2. Examen Físico: Cuatro Técnicas Fundamentales
+                            </h4>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                                <div class="p-3.5 bg-white rounded-xl border border-gray-200 space-y-1.5 shadow-2xs">
+                                    <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-sm">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </div>
+                                    <strong class="block text-gray-900 font-bold">1. Inspección</strong>
+                                    <span class="text-[10px] bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded uppercase font-semibold">Visual Atenta</span>
+                                    <p class="text-gray-600 text-[11.5px] leading-snug">Examen visual deliberado: coloración cutánea, heridas, hematomas, lesiones y facies de dolor.</p>
+                                </div>
+
+                                <div class="p-3.5 bg-white rounded-xl border border-gray-200 space-y-1.5 shadow-2xs">
+                                    <div class="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center font-bold text-sm">
+                                        <i class="fa-solid fa-stethoscope"></i>
+                                    </div>
+                                    <strong class="block text-gray-900 font-bold">2. Auscultación</strong>
+                                    <span class="text-[10px] bg-teal-50 text-teal-700 px-1.5 py-0.5 rounded uppercase font-semibold">Escucha Acústica</span>
+                                    <p class="text-gray-600 text-[11.5px] leading-snug">Escucha con estetoscopio de ruidos biológicos: murmullo vesicular, sibilancias o ruidos hidroaéreos.</p>
+                                </div>
+
+                                <div class="p-3.5 bg-white rounded-xl border border-gray-200 space-y-1.5 shadow-2xs">
+                                    <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center font-bold text-sm">
+                                        <i class="fa-solid fa-hand"></i>
+                                    </div>
+                                    <strong class="block text-gray-900 font-bold">3. Palpación</strong>
+                                    <span class="text-[10px] bg-amber-50 text-amber-700 px-1.5 py-0.5 rounded uppercase font-semibold">Tacto Metódico</span>
+                                    <p class="text-gray-600 text-[11.5px] leading-snug">Exploración táctil con pulpejos y palmas para detectar gradientes de calor, dolor, pulsos y edema (signo de fóvea).</p>
+                                </div>
+
+                                <div class="p-3.5 bg-white rounded-xl border border-gray-200 space-y-1.5 shadow-2xs">
+                                    <div class="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center font-bold text-sm">
+                                        <i class="fa-solid fa-drum"></i>
+                                    </div>
+                                    <strong class="block text-gray-900 font-bold">4. Percusión</strong>
+                                    <span class="text-[10px] bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded uppercase font-semibold">Golpeteo Metódico</span>
+                                    <p class="text-gray-600 text-[11.5px] leading-snug">Golpeteo directo o indirecto sobre la superficie corporal para percibir resonancias acústicas (timpanismo o matidez).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100 flex justify-end">
+                        <button onclick="switchTab('tab-mod2')" class="bg-accent hover:opacity-90 text-white font-semibold px-5 py-2 rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                            <span>Avanzar a Fase 2: Diagnóstico</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MÓDULO 2: DIAGNÓSTICO ================= -->
+            <div id="tab-mod2" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm space-y-6">
+                    <div class="border-b border-gray-100 pb-4 flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-[#436600] bg-[#f1f6eb] px-3 py-1 rounded-full">Fase 2 del PAE</span>
+                            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mt-1">Diagnóstico de Enfermería: Juicio Clínico y Respuestas Humanas</h2>
+                        </div>
+                        <button onclick="switchTab('tab-mod3')" class="text-xs font-semibold text-[#436600] hover:underline flex items-center gap-1">
+                            Siguiente Fase <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                        <!-- Enfoque en Respuestas Humanas -->
+                        <div class="p-5 bg-gray-50 rounded-xl border border-gray-200/80 space-y-3 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 text-[#436600] font-bold text-sm mb-1">
+                                    <i class="fa-solid fa-brain"></i>
+                                    <h4>Análisis e Interpretación de Datos</h4>
+                                </div>
+                                <p class="text-xs text-gray-700 leading-relaxed">
+                                    El diagnóstico enfermero surge del razonamiento crítico sobre los datos de la valoración. Identifica <strong>respuestas humanas y problemas derivados de necesidades básicas insatisfechas</strong> ante procesos vitales o de enfermedad reales y potenciales.
+                                </p>
+                            </div>
+                            <div class="p-3 bg-white rounded-lg border border-gray-200 text-xs text-gray-600 space-y-1">
+                                <strong class="text-gray-900 block font-semibold">Estructura de la Hipótesis Enfermera:</strong>
+                                <p class="italic">"Patrón respiratorio ineficaz (problema) relacionado con fatiga de músculos accesorios (etiología) manifestado por disnea y saturación de 87% (signos/síntomas)".</p>
+                            </div>
+                        </div>
+
+                        <!-- Autonomía vs Diagnóstico Médico -->
+                        <div class="p-5 bg-white rounded-xl border border-gray-200 space-y-3 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 text-[#436600] font-bold text-sm mb-1">
+                                    <i class="fa-solid fa-scale-balanced"></i>
+                                    <h4>Dimensión Autónoma vs. Diagnóstico Médico</h4>
+                                </div>
+                                <p class="text-xs text-gray-600 leading-relaxed mb-2">
+                                    Es crucial distinguir los objetos disciplinares de ambas profesiones:
+                                </p>
+                                
+                                <div class="space-y-2 text-xs">
+                                    <div class="p-2.5 bg-red-50/70 rounded-lg border border-red-200">
+                                        <strong class="text-red-900 block font-semibold mb-0.5">Diagnóstico Médico (Patología / Nosología):</strong>
+                                        <p class="text-gray-700">Se focaliza en la alteración anatómica u orgánica estructural. Ej: <em>"Neumonía aguda bilateral"</em> o <em>"Insuficiencia Cardíaca"</em>.</p>
+                                    </div>
+                                    <div class="p-2.5 bg-[#f1f6eb] rounded-lg border border-[#436600]/20">
+                                        <strong class="text-[#436600] block font-semibold mb-0.5">Diagnóstico de Enfermería (Respuesta Humana):</strong>
+                                        <p class="text-gray-700">Se focaliza en la vivencia y la respuesta funcional de la persona ante esa patología. Ej: <em>"Deterioro del intercambio de gases"</em> o <em>"Deterioro de la integridad cutánea"</em>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100 flex justify-between items-center">
+                        <button onclick="switchTab('tab-mod1')" class="text-xs font-semibold text-gray-500 hover:text-gray-800">
+                            <i class="fa-solid fa-arrow-left mr-1"></i> Volver a Valoración
+                        </button>
+                        <button onclick="switchTab('tab-mod3')" class="bg-accent hover:opacity-90 text-white font-semibold px-5 py-2 rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                            <span>Avanzar a Fase 3: Planificación</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MÓDULO 3: PLANIFICACIÓN ================= -->
+            <div id="tab-mod3" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm space-y-6">
+                    <div class="border-b border-gray-100 pb-4 flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-[#436600] bg-[#f1f6eb] px-3 py-1 rounded-full">Fase 3 del PAE</span>
+                            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mt-1">Planificación: Jerarquización y Fundamento Científico</h2>
+                        </div>
+                        <button onclick="switchTab('tab-mod4')" class="text-xs font-semibold text-[#436600] hover:underline flex items-center gap-1">
+                            Siguiente Fase <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- 3 Pilares de la Planificación -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200/80 space-y-2">
+                            <div class="w-8 h-8 rounded-lg bg-red-50 text-red-700 flex items-center justify-center font-bold text-sm">
+                                <i class="fa-solid fa-arrow-down-short-wide"></i>
+                            </div>
+                            <strong class="block text-gray-900 font-bold text-xs">1. Establecimiento de Prioridades</strong>
+                            <p class="text-[11.5px] text-gray-600 leading-relaxed">
+                                Se jerarquizan los diagnósticos desde lo más urgente (riesgo vital e hipoxemia) hacia lo menos urgente (integridad tisular y confort).
+                            </p>
+                        </div>
+
+                        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200/80 space-y-2">
+                            <div class="w-8 h-8 rounded-lg bg-[#f1f6eb] text-[#436600] flex items-center justify-center font-bold text-sm">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </div>
+                            <strong class="block text-gray-900 font-bold text-xs">2. Definición de Objetivos</strong>
+                            <p class="text-[11.5px] text-gray-600 leading-relaxed">
+                                Metas claras, medibles y a corto plazo en el paciente internado, para resolver la emergencia de forma rápida y segura.
+                            </p>
+                        </div>
+
+                        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200/80 space-y-2">
+                            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-sm">
+                                <i class="fa-solid fa-flask-vial"></i>
+                            </div>
+                            <strong class="block text-gray-900 font-bold text-xs">3. Intervenciones Fundamentadas</strong>
+                            <p class="text-[11.5px] text-gray-600 leading-relaxed">
+                                Acciones independientes (autónomas) y dependientes (prescripción médica), justificadas con bases fisiopatológicas y anatómicas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Caso Demostrativo: Oxigenoterapia y Semi-Fowler vs Úlcera Sacra -->
+                    <div class="p-5 bg-amber-50/60 rounded-2xl border border-amber-200 space-y-3">
+                        <div class="flex items-center gap-2 text-amber-950 font-bold text-sm">
+                            <i class="fa-solid fa-bed-pulse text-amber-700"></i>
+                            <h4>Demostración Clínica: Caso de Asignación de Prioridades</h4>
+                        </div>
+                        <p class="text-xs text-gray-700 leading-relaxed">
+                            <strong>Escenario:</strong> Paciente somnoliento con disnea severa (FR: 32 rpm, SatO2: 86%) y simultáneamente presenta úlceras por presión en talones y región sacrococcígea.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs pt-1">
+                            <div class="p-3 bg-white rounded-xl border border-emerald-300 space-y-1.5">
+                                <strong class="text-emerald-800 font-bold block flex items-center gap-1">
+                                    <i class="fa-solid fa-circle-check text-emerald-600"></i> Prioridad 1: Asistencia Ventilatoria Inmediata
+                                </strong>
+                                <ul class="space-y-1 text-gray-600 text-[11.5px] pl-1">
+                                    <li>• <strong>Posición semi-Fowler a 45°:</strong> Acción independiente que expande el tórax y disminuye el esfuerzo diafragmático.</li>
+                                    <li>• <strong>Oxigenoterapia:</strong> Acción dependiente para revertir la hipoxemia y evitar paro cardiorrespiratorio.</li>
+                                </ul>
+                            </div>
+
+                            <div class="p-3 bg-white rounded-xl border border-gray-200 space-y-1.5">
+                                <strong class="text-gray-700 font-bold block flex items-center gap-1">
+                                    <i class="fa-solid fa-circle-pause text-gray-400"></i> Prioridad 2: Cuidados de la Piel (Post-estabilización)
+                                </strong>
+                                <p class="text-[11.5px] text-gray-600">
+                                    La curación de talones y zona sacra se realiza inmediatamente después de estabilizar los parámetros de oxigenación, ya que no representa riesgo de muerte inminente.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100 flex justify-between items-center">
+                        <button onclick="switchTab('tab-mod2')" class="text-xs font-semibold text-gray-500 hover:text-gray-800">
+                            <i class="fa-solid fa-arrow-left mr-1"></i> Volver a Diagnóstico
+                        </button>
+                        <button onclick="switchTab('tab-mod4')" class="bg-accent hover:opacity-90 text-white font-semibold px-5 py-2 rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                            <span>Avanzar a Fase 4: Ejecución</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MÓDULO 4: EJECUCIÓN ================= -->
+            <div id="tab-mod4" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm space-y-6">
+                    <div class="border-b border-gray-100 pb-4 flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-[#436600] bg-[#f1f6eb] px-3 py-1 rounded-full">Fase 4 del PAE</span>
+                            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mt-1">Ejecución: Operatividad Clínica y Registro Documental</h2>
+                        </div>
+                        <button onclick="switchTab('tab-mod5')" class="text-xs font-semibold text-[#436600] hover:underline flex items-center gap-1">
+                            Siguiente Fase <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                        <!-- Puesta en Práctica -->
+                        <div class="p-5 bg-gray-50 rounded-xl border border-gray-200/80 space-y-3">
+                            <div class="flex items-center gap-2 text-[#436600] font-bold text-sm">
+                                <i class="fa-solid fa-hand-holding-medical"></i>
+                                <h4>Puesta en Práctica de las Intervenciones</h4>
+                            </div>
+                            <p class="text-xs text-gray-700 leading-relaxed">
+                                Es la fase de acción directa. El profesional implementa las actividades cognitivas, procedimentales y relacionales diseñadas en el plan de cuidados.
+                            </p>
+                            <div class="space-y-2 text-xs text-gray-600">
+                                <div class="p-2.5 bg-white rounded-lg border border-gray-200">
+                                    <strong>• Cuidado Directo:</strong> Colocación de cánula nasal a flujo indicado, incorporación de cama a 45° y aspiración de secreciones.
+                                </div>
+                                <div class="p-2.5 bg-white rounded-lg border border-gray-200">
+                                    <strong>• Monitoreo Dinámico:</strong> Observación continua de la tolerancia del paciente al procedimiento y prevención de complicaciones.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Registro Metódico -->
+                        <div class="p-5 bg-[#f1f6eb] rounded-xl border border-[#436600]/20 space-y-3 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 text-[#436600] font-bold text-sm">
+                                    <i class="fa-solid fa-file-signature"></i>
+                                    <h4>Registro Metódico y Continuo</h4>
+                                </div>
+                                <p class="text-xs text-gray-700 leading-relaxed mt-1">
+                                    Principio científico-legal fundamental: <em>"Lo que no está registrado, no está realizado"</em>.
+                                </p>
+                            </div>
+                            <div class="p-3 bg-white rounded-lg border border-[#436600]/20 text-xs text-gray-600 space-y-1.5">
+                                <div>• Garantiza la trazabilidad evolutiva del paciente a lo largo de los turnos de guardia.</div>
+                                <div>• Provee los datos objetivos indispensables para la posterior fase de <strong>Evaluación</strong>.</div>
+                                <div>• Resguarda la seguridad jurídica y la comunicación en el equipo de salud.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100 flex justify-between items-center">
+                        <button onclick="switchTab('tab-mod3')" class="text-xs font-semibold text-gray-500 hover:text-gray-800">
+                            <i class="fa-solid fa-arrow-left mr-1"></i> Volver a Planificación
+                        </button>
+                        <button onclick="switchTab('tab-mod5')" class="bg-accent hover:opacity-90 text-white font-semibold px-5 py-2 rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                            <span>Avanzar a Fase 5: Evaluación</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MÓDULO 5: EVALUACIÓN ================= -->
+            <div id="tab-mod5" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm space-y-6">
+                    <div class="border-b border-gray-100 pb-4 flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-[#436600] bg-[#f1f6eb] px-3 py-1 rounded-full">Fase 5 del PAE</span>
+                            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mt-1">Evaluación: Cotejo de Resultados y Ciclo en Espiral</h2>
+                        </div>
+                        <button onclick="switchTab('tab-inicio')" class="text-xs font-semibold text-[#436600] hover:underline flex items-center gap-1">
+                            Volver al Inicio <i class="fa-solid fa-arrow-up"></i>
+                        </button>
+                    </div>
+
+                    <p class="text-gray-700 text-sm leading-relaxed">
+                        Comparación metódica y analítica entre la respuesta actual del paciente y los objetivos planteados en la planificación para emitir un dictamen profesional.
+                    </p>
+
+                    <!-- Tres Dictámenes de Evaluación -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                        <div class="p-4 bg-emerald-50/70 rounded-xl border border-emerald-300 space-y-2 flex flex-col justify-between">
+                            <div>
+                                <strong class="text-emerald-900 font-bold block text-sm flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-check text-emerald-600"></i> Objetivo Cumplido Totalmente
+                                </strong>
+                                <p class="text-gray-700 mt-1">El paciente alcanzó todos los parámetros de normalidad previstos.</p>
+                            </div>
+                            <div class="p-2 bg-white rounded-lg border border-emerald-200 text-emerald-950 font-semibold text-[11px]">
+                                Decisión: Se resuelve el diagnóstico y finaliza la intervención.
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-amber-50/70 rounded-xl border border-amber-300 space-y-2 flex flex-col justify-between">
+                            <div>
+                                <strong class="text-amber-950 font-bold block text-sm flex items-center gap-1.5">
+                                    <i class="fa-solid fa-clock-rotate-left text-amber-600"></i> Objetivo Cumplido Parcialmente
+                                </strong>
+                                <p class="text-gray-700 mt-1">Hay mejoría evidente pero sin alcanzar la meta de seguridad en el tiempo estipulado.</p>
+                            </div>
+                            <div class="p-2 bg-white rounded-lg border border-amber-200 text-amber-950 font-semibold text-[11px]">
+                                Decisión: Se mantiene y reajusta la intervención o se amplía el margen.
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-red-50/70 rounded-xl border border-red-300 space-y-2 flex flex-col justify-between">
+                            <div>
+                                <strong class="text-red-950 font-bold block text-sm flex items-center gap-1.5">
+                                    <i class="fa-solid fa-triangle-exclamation text-red-600"></i> Objetivo No Cumplido
+                                </div>
+                                <p class="text-gray-700 mt-1">No hay mejoría o el paciente empeora. Evidencia fracaso o cambio fisiopatológico.</p>
+                            </div>
+                            <div class="p-2 bg-white rounded-lg border border-red-200 text-red-950 font-semibold text-[11px]">
+                                Decisión: <strong>Revaloración total</strong> del ciclo (datos, diagnóstico o plan).
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- El concepto en espiral -->
+                    <div class="p-4 bg-[#f1f6eb] rounded-xl border border-[#436600]/20 text-xs text-gray-700 space-y-1.5">
+                        <strong class="text-[#436600] font-bold block text-sm flex items-center gap-1.5">
+                            <i class="fa-solid fa-infinity"></i> La Naturaleza en Espiral del PAE
+                        </strong>
+                        <p class="leading-relaxed">
+                            La evaluación <strong>no es el fin definitivo</strong> del proceso, sino la bisagra de reentrada que reinicia el ciclo. Permite verificar la efectividad de la ciencia del cuidado y refinar continuamente las intervenciones de enfermería.
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100 flex justify-between items-center">
+                        <button onclick="switchTab('tab-mod4')" class="text-xs font-semibold text-gray-500 hover:text-gray-800">
+                            <i class="fa-solid fa-arrow-left mr-1"></i> Volver a Ejecución
+                        </button>
+                        <button onclick="switchTab('tab-inicio')" class="bg-accent hover:opacity-90 text-white font-semibold px-5 py-2 rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-house"></i>
+                            <span>Volver a Presentación General</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Modal: Guía de Uso del Simulador -->
+    <div id="tutorial-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-5 sm:p-6 shadow-xl border border-gray-200 flex flex-col max-h-[90vh] overflow-hidden animate-fadeIn">
+            
+            <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-5 bg-accent rounded-full inline-block"></span>
+                    <h3 class="text-base font-bold text-gray-800">Guía de Uso del Simulador</h3>
+                </div>
+                <button onclick="closeTutorial()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="overflow-y-auto custom-scroll pr-2 my-3 space-y-3.5 text-xs text-slate-600 leading-relaxed max-h-[460px]">
+                <!-- Propósito Académico -->
+                <div class="p-3.5 bg-accent-light/70 rounded-xl border border-accent/25">
+                    <strong class="text-accent block mb-1 font-sans text-xs flex items-center gap-1.5">
+                        <i class="fa-solid fa-bullseye text-sm"></i> Propósito Institucional y Marco Académico
+                    </strong>
+                    Diseñado para aspirantes a la <strong>Licenciatura en Enfermería de la Facultad de Ciencias Médicas (Universidad Católica de Cuyo - San Juan)</strong>. Su meta es consolidar la comprensión del <strong>Proceso de Atención de Enfermería (PAE)</strong> como la aplicación directa del método científico en el cuidado humano profesional, dominando sus <strong>5 etapas correlacionadas</strong> (Valoración, Diagnóstico, Planificación, Ejecución y Evaluación) y su naturaleza racional, lógica, sistemática, organizada y dinámica.
+                </div>
+
+                <!-- Navegación y Herramientas Formativas -->
+                <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-150 space-y-2">
+                    <strong class="text-primary block font-sans text-xs flex items-center gap-1.5">
+                        <i class="fa-solid fa-compass text-sm"></i> Navegación y Herramientas Formativas
+                    </strong>
+                    <ul class="space-y-1.5 text-[11.5px] text-gray-600 pl-1">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-bars text-accent mt-0.5 shrink-0 text-xs"></i>
+                            <span><strong>Menú Lateral:</strong> Permite alternar de forma inmediata entre la Presentación General y las 5 fases formativas secuenciales del PAE.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-arrows-spin text-accent mt-0.5 shrink-0 text-xs"></i>
+                            <span><strong>Mapa Interactivo del Ciclo:</strong> En la Presentación General, haz clic sobre cualquiera de las 5 fases en el tablero para acceder directamente a sus fundamentos.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-bed-pulse text-accent mt-0.5 shrink-0 text-xs"></i>
+                            <span><strong>Demostración Clínica Guiada (Fase 3):</strong> Examina el caso de jerarquización fisiopatológica donde la asistencia ventilatoria (semi-Fowler 45° y oxigenoterapia) precede a las lesiones cutáneas.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Desglose Modular Detallado -->
+                <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-150 space-y-2.5">
+                    <strong class="text-primary block font-sans text-xs flex items-center gap-1.5">
+                        <i class="fa-solid fa-book-bookmark text-sm"></i> Estructura Modular y Contenidos Disciplinares:
+                    </strong>
+                    <ul class="space-y-2.5 text-[11px] text-gray-600 pl-1">
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">Presentación General:</strong>
+                            Paralelismo entre el método científico de investigación y el PAE. Las 3 propiedades epistemológicas: <em>Sistemático</em> (orden secuencial), <em>Organizado</em> (5 fases estructuradas) y <em>Dinámico/Flexible</em> (adaptabilidad al cambio humano).
+                        </li>
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">1. Fase de Valoración:</strong>
+                            Recolección metódica y continua. Clasificación entre <strong>datos subjetivos</strong> (sensaciones, vivencias no medibles por instrumentos) y <strong>datos objetivos</strong> (signos medibles y observables). Procedimientos esenciales: <em>Entrevista de enfermería</em> y <em>Examen físico</em> mediante sus cuatro técnicas:
+                            <div class="mt-1 pl-2 border-l-2 border-accent space-y-0.5 text-gray-700">
+                                <div>• <strong>Inspección:</strong> Examen visual atento (coloración, lesiones, simetría, facies).</div>
+                                <div>• <strong>Auscultación:</strong> Percepción acústica con estetoscopio (ruidos respiratorios, hidroaéreos).</div>
+                                <div>• <strong>Palpación:</strong> Exploración táctil metódica (temperatura, dolor, fóvea/edema, pulsos).</div>
+                                <div>• <strong>Percusión:</strong> Golpeteo directo/indirecto (resonancia, timpanismo, matidez).</div>
+                            </div>
+                        </li>
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">2. Fase de Diagnóstico:</strong>
+                            Juicio clínico crítico sobre respuestas humanas y necesidades básicas no satisfechas. Diferenciación rigurosa frente al <em>diagnóstico médico</em> (patología nosológica estructural vs. respuesta y vivencia humana).
+                        </li>
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">3. Fase de Planificación:</strong>
+                            Jerarquización de prioridades (riesgo vital primero), formulación de objetivos a corto plazo e intervenciones con sustento científico: acciones <em>independientes</em> (ej. posición semi-Fowler a 45° para liberar el diafragma) y <em>dependientes</em> (oxigenoterapia por indicación médica).
+                        </li>
+                        <li class="border-b border-gray-200 pb-2">
+                            <strong class="text-gray-900 block text-xs">4. Fase de Ejecución:</strong>
+                            Puesta en práctica del cuidado directo y monitoreo continuo. Principio del registro documental metódico: <em>"Lo que no está registrado, no está realizado"</em> para la continuidad asistencial y seguridad legal.
+                        </li>
+                        <li>
+                            <strong class="text-gray-900 block text-xs">5. Fase de Evaluación:</strong>
+                            Comparación reflexiva de resultados frente a objetivos prefijados: <em>Objetivo Cumplido Totalmente</em> (resolución), <em>Cumplido Parcialmente</em> (reajuste de intervenciones y extensión temporal) u <em>Objetivo No Cumplido</em> (revaloración integral). Concepción del PAE como un <strong>ciclo dinámico continuo en espiral</strong>.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Consejos Pedagógicos UCCuyo -->
+                <div class="p-3 bg-amber-50/80 rounded-xl border border-amber-200 text-[11px] text-amber-900 space-y-1">
+                    <strong class="block font-bold text-amber-950 flex items-center gap-1.5">
+                        <i class="fa-solid fa-lightbulb text-amber-700"></i> Recomendaciones Pedagógicas UCCuyo:
+                    </strong>
+                    <p>
+                        1. La función respiratoria y la oxigenación preceden siempre a la integridad cutánea en una situación de riesgo vital.<br>
+                        2. El PAE es continuo: un resultado parcial no significa fracaso, sino la oportunidad científica de reajustar intervenciones y revalorar al paciente.<br>
+                        3. Registrar cada intervención es un deber ético, científico y legal insustituible para el ejercicio profesional de la enfermería.
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
+                <span class="text-[10.5px] text-gray-400 font-medium">UCCuyo • Fundamentos de Enfermería</span>
+                <button onclick="closeTutorial()" class="bg-primary text-white font-semibold py-2 px-5 rounded-lg text-xs hover:opacity-90 transition shadow-sm">
+                    Entendido, Comenzar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Institucional Estándar -->
+    <footer class="bg-white border-t border-gray-200 mt-6">
+        <div class="max-w-6xl mx-auto px-4 py-3 text-center text-xs text-gray-500 font-semibold tracking-wide">
+            Desarrollado por vesalio - Todos los derechos reservados
+        </div>
+    </footer>
+
+    <!-- Lógica Interactiva en JavaScript -->
+    <script>
+        // Modal Tutorial
+        function openTutorial() {
+            const m = document.getElementById('tutorial-modal');
+            if (m) m.classList.remove('hidden');
+        }
+        function closeTutorial() {
+            const m = document.getElementById('tutorial-modal');
+            if (m) m.classList.add('hidden');
+        }
+
+        window.addEventListener('click', function(e) {
+            const m = document.getElementById('tutorial-modal');
+            if (e.target === m) closeTutorial();
+        });
+
+        // Navegación entre pestañas
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active');
+
+            const tabIds = ['tab-inicio', 'tab-mod1', 'tab-mod2', 'tab-mod3', 'tab-mod4', 'tab-mod5'];
+            tabIds.forEach(id => {
+                const btn = document.getElementById('btn-' + id);
+                if (btn) {
+                    if (id === tabId) {
+                        btn.className = 'bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-semibold transition flex items-center gap-2.5 shadow-xs';
+                        const icon = btn.querySelector('i');
+                        if (icon) {
+                            icon.classList.remove('text-[#436600]');
+                            icon.classList.add('text-white');
+                        }
+                    } else {
+                        btn.className = 'text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5';
+                        const icon = btn.querySelector('i');
+                        if (icon) {
+                            icon.classList.remove('text-white');
+                            icon.classList.add('text-[#436600]');
+                        }
+                    }
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
